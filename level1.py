@@ -10,7 +10,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('World Of Snails')
 
 #define game variables
-tile_size = 100
+tile_size = 50
 
 
 #load images
@@ -21,7 +21,15 @@ def draw_grid():
 		pygame.draw.line(screen, (255, 255, 255), (0, line * tile_size), (screen_width, line * tile_size))
 		pygame.draw.line(screen, (255, 255, 255), (line * tile_size, 0), (line * tile_size, screen_height))
 
-
+class Player():
+    def __init__(self, x, y):
+        img = pygame.image.load('assets/player/gary.png')
+        self.image = pygame.transform.scale(img, (60, 60))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    def update(self):
+        screen.blit(self.image, self.rect)
 
 class World():
 	def __init__(self, data):
@@ -59,15 +67,20 @@ class World():
 
 
 world_data = [
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [2, 2, 2, 2, 2, 2, 2, 2]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 ]
 
 
-
+player = Player(150, screen_height - 107)
 
 world = World(world_data)
 
@@ -77,6 +90,7 @@ while run:
 	screen.blit(sun_img, (100, 100))
 
 	world.draw()
+	player.update()
 
 	draw_grid()
 
